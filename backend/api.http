@@ -1,0 +1,19 @@
+####
+POST http://localhost:8080/register
+content-type: : application/json
+
+{
+"username": "mau",
+"password": "123456789"
+}
+####
+POST http://localhost:8080/login
+
+content-type: : application/json
+{
+"username": "mau",
+"password": "123456789"
+}
+
+####
+GET http://localhost:8080/profile
