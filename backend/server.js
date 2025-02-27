@@ -61,13 +61,13 @@ app.post('/login', async (req, res) => {
   const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
 
   res.cookie('authToken', token, {
-    httpOnly: true,
-    secure: true, // Solo HTTPS en producción
+    httpOnly: false,
+    secure: false, // Solo HTTPS en producción
     sameSite: 'Strict',
     maxAge: 3600000, // 1 hora
   });
 
-  res.json({ message: 'Login exitoso'});
+  res.status(200).json({ message: 'Login exitoso', status: 200});
 });
 
 // 👉 Ruta protegida (requiere autenticación)

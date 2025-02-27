@@ -1,6 +1,6 @@
 ####
 POST http://localhost:8080/register
-content-type: : application/json
+content-type: application/json
 
 {
 "username": "mau",
@@ -8,8 +8,8 @@ content-type: : application/json
 }
 ####
 POST http://localhost:8080/login
+content-type: application/json
 
-content-type: : application/json
 {
 "username": "mau",
 "password": "123456789"
