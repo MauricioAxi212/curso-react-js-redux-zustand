@@ -1,4 +1,4 @@
- import axios, { AxiosResponse } from "axios";
+ import axios, { Axios, AxiosResponse } from "axios";
 import { AuthResponse } from "../types";
 
 /**
@@ -11,9 +11,32 @@ export const loginService = (username: string, password: string): Promise<AuthRe
    return axios.post('http://localhost:8080/login', {
      username,
      password,
-   })
+
+   },
+  {
+    withCredentials: true,
+  })
    .then((response: AxiosResponse<AuthResponse>) => response.data)
    .catch(() => {
      throw new Error("Algo fallo al iniciar sesion");
    })
+ }
+
+
+ //REGISTRO
+
+
+ export const registerService = (username: string, password: string): Promise<AuthResponse> =>{
+  return axios.post('http://localhost:8080/register',{
+    username,
+    password
+  },
+  {
+    withCredentials: true,
+  }
+)
+  .then((response: AxiosResponse<AuthResponse>) => response.data)
+  .catch(() => {
+    throw new Error("registro fallido")
+  });
  }

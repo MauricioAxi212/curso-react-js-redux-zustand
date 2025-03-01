@@ -1,6 +1,7 @@
 import { LOGIN_ENDPOINT } from "../endpoints";
 import { INIT_LOGIN, LOGIN_FAILURE, LOGIN_SUCCESS  } from "../types";
 
+
 const loginAction =  (username: string, password: string) => {
     return (dispatch) => {
         dispatch({type: INIT_LOGIN})

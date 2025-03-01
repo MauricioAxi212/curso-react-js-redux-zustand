@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { loginService } from '../../services/auth.service';
+
 import {useNavigate} from 'react-router-dom'
 import './Login.css';
-import { AuthResponse } from '../../types';
-import { loginAction } from '../../state/actions/AuthAction';
-import {useSelector, useDispatch} from 'react-redux'
-
+//aqui importe los iconos 
+import { FcManager } from "react-icons/fc";
+import { useAuthStore } from '../../store/authStore';
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [error, setError] = useState<string | null>(null);
+    const [error] = useState<string | null>(null);
 
     const navigate = useNavigate()
 
-    const isAuhenticated = useSelector((state) => state.Auth.isAuthenticated)
-    const dispatch = useDispatch()
+    const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+    const loginAction = useAuthStore((state) => state.login)
 
     useEffect(() => {
-        if (isAuhenticated) {
+        if (isAuthenticated) {
             navigate('/home')
         }
-    }, [isAuhenticated, navigate]);
+    }, [isAuthenticated, navigate]);
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        dispatch(loginAction(username, password))
+        loginAction(username, password)
         // loginService(username, password)
         // .then((response: AuthResponse) => {
         //     if (response && response?.status === 200) { 
@@ -38,18 +37,23 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div>
-            <h2>Inicia sesión</h2>
+        <div className='login-container'>
             {
                 error  && <p>{error}</p>
             }
             <form onSubmit={handleSubmit}>
-                <input
+            <h2>  Inicia sesión</h2>
+
+            <FcManager size={80} />
+
+                <input 
                     type="text"
                     placeholder="Escribe tu usuario"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    
                 />
+                
                 <input
                     type="password"
                     placeholder="Escribe tu contraseña"
@@ -57,6 +61,10 @@ const Login: React.FC = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <button type="submit">Iniciar sesión</button>
+                <a href="/register" target="_blank" rel="noopener noreferrer">
+                    <button type="button">Registrarse</button>
+                </a>
+
             </form>
         </div>
     );
